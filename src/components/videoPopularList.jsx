@@ -3,9 +3,12 @@ import VideoCard from "./videoCard";
 
 class VideoPopularList extends Component {
   state = { videoCards: [] };
+
+  handleCardClick = (card) => {
+    this.props.onCardClick(card);
+  };
   componentDidMount() {
     console.log(`habit: videoPopularList mounted`);
-    // var formdata = new FormData();
 
     var requestOptions = {
       method: "GET",
@@ -31,7 +34,11 @@ class VideoPopularList extends Component {
     return (
       <>
         {this.state.videoCards.map((card) => (
-          <VideoCard key={card.id} card={card.snippet} />
+          <VideoCard
+            key={card.id}
+            card={card.snippet}
+            onCardClick={this.handleCardClick}
+          />
         ))}
       </>
     );
