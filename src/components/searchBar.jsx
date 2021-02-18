@@ -7,18 +7,8 @@ const SearchBar = (props) => {
     event.preventDefault();
     const searchInput = searchInputRef.current.value;
     console.log(`submitted search!${searchInput}`);
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
+    props.onSearch(searchInput);
 
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchInput}&key=AIzaSyDx4s78pyfBhiFUTh1Gj1sWSH5hrmSHNWE`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
     searchFormRef.current.reset();
   };
   return (
@@ -29,8 +19,8 @@ const SearchBar = (props) => {
         ref={searchInputRef}
         placeholder="Search..!"
       ></input>
-      <button className="search-button">
-        <i className="fas fa-search"></i>
+      <button>
+        <i className="search-button fas fa-search"></i>
       </button>
     </form>
   );

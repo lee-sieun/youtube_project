@@ -7,3 +7,23 @@
 .videoCard-author {
   background-color: antiquewhite;
 }
+
+.nav {
+  font-size: 2rem;
+  text-align: center;
+
+  background-color: blanchedalmond;
+}
+.nav-logo {
+  margin: 0.5rem;
+  color: darkred;
+}
+.nav-search {
+  display: inline-block;
+  margin: 0.2rem;
+  text-align: center;
+  width: 50%;
+  height: 2.5rem;
+  padding: 0.4rem;
+  border-radius: 5%;
+}
