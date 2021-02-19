@@ -1,47 +1,36 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Navbar from "./components/navbar/navbar";
-import VideoCard from "./components/videoCard/videoCard";
 import VideoList from "./components/videoList/videoList";
-
 import Video from "./components/video";
 import "./app.css";
 
-class App extends Component {
-  state = { videos: [] };
-
-  componentDidMount() {
-    const youtube = this.props.youtube;
+const App = ({ youtube }) => {
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  useEffect(() => {
     youtube
       .mostPopular() //
-      .then((videos) => this.setState({ videos: videos }));
-  }
+      .then((videos) => setVideos(videos));
+  }, []);
 
-  handleSearch = (searchInput) => {
-    const youtube = this.props.youtube;
+  const handleSearch = (searchInput) => {
     youtube
       .search(searchInput) //
-      .then((videos) => this.setState({ videos: videos }));
+      .then((videos) => setVideos(videos));
   };
-  handleVideoClick = (video) => {
+
+  const handleVideoClick = (video) => {
+    setSelectedVideo(video);
     console.log(`A card in popular list clicked! ${video.snippet.title}`);
   };
-  render() {
-    return (
-      <>
-        <Navbar onSearch={this.handleSearch} />
-        <VideoList
-          videos={this.state.videos}
-          onVideoClick={this.handleVideoClick}
-        />
-        <Video
-          videoID="M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-          videoTitle="Video Title"
-          channelTitle="Channel Title"
-          videoDesc="Video Description!"
-        />
-      </>
-    );
-  }
-}
+  return (
+    <div>
+      <Navbar onSearch={handleSearch} />
+      {selectedVideo && <Video video={selectedVideo} />}
+
+      <VideoList videos={videos} onVideoClick={handleVideoClick} />
+    </div>
+  );
+};
 
 export default App;

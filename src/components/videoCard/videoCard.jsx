@@ -1,31 +1,22 @@
 import React, { Component } from "react";
 import styles from "./videoCard.module.css";
-class VideoCard extends Component {
-  handleVideoClick = () => {
-    console.log(`videoClicked ${this.props.video}`);
-    this.props.onVideoClick(this.props.video);
-  };
-  render() {
-    const video = this.props.video.snippet;
-    const videoTitle = video["title"];
-    const videoChannelTitle = video["channelTitle"];
 
-    return (
-      <li className={styles.container} onClick={this.handleVideoClick}>
-        <div className={styles.video}>
-          <img
-            className={styles.thumbnail}
-            src={video["thumbnails"]["medium"]["url"]}
-            alt="videoCardImage"
-          ></img>
-          <div className={styles.metadata}>
-            <p className={styles.title}>{videoTitle}</p>
-            <p className={styles.channelTitle}>{videoChannelTitle}</p>
-          </div>
+const VideoCard = ({ video, onVideoClick }) => {
+  return (
+    <li className={styles.container} onClick={() => onVideoClick(video)}>
+      <div className={styles.video}>
+        <img
+          className={styles.thumbnail}
+          src={video.snippet["thumbnails"]["medium"]["url"]}
+          alt="videoCardImage"
+        ></img>
+        <div className={styles.metadata}>
+          <p className={styles.title}>{video.snippet.title}</p>
+          <p className={styles.channel}>{video.snippet.channelTitle}</p>
         </div>
-      </li>
-    );
-  }
-}
+      </div>
+    </li>
+  );
+};
 
 export default VideoCard;

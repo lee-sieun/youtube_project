@@ -1,19 +1,20 @@
 import React from "react";
 
-const Video = (props) => {
+const Video = ({ video }) => {
   return (
     <>
+      {/* <h2>{props.video.snippet.title}</h2> */}
       <iframe
         id="ytplayer"
         type="text/html"
         width="1000"
         height="500"
-        src={`https://www.youtube.com/embed/${props.videoID}`}
+        src={`https://www.youtube.com/embed/${video.id}`}
         frameBorder="0"
       ></iframe>
-      <h2>{props.videoTitle}</h2>
-      <h3>{props.channelTitle}</h3>
-      <span>{props.videoDesc}</span>
+
+      <h3>{video.snippet.channelTitle}</h3>
+      <span>{video.snippet.description}</span>
     </>
   );
 };
