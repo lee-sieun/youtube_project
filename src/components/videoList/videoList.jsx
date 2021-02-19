@@ -4,7 +4,6 @@ import styles from "./videoList.module.css";
 
 const VideoList = ({ videos, onVideoClick, display }) => {
   const handleVideoClick = (video) => {
-    console.log("clicked on videoList");
     onVideoClick(video);
   };
   return (
