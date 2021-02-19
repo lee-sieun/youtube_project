@@ -1,51 +1,29 @@
 import React, { Component } from "react";
-import Navbar from "./components/navbar";
-import SearchBar from "./components/searchBar";
+import Navbar from "./components/navbar/navbar";
 import VideoCard from "./components/videoCard/videoCard";
 import VideoList from "./components/videoList/videoList";
-import "./app.css";
+
 import Video from "./components/video";
+import "./app.css";
 
 class App extends Component {
   state = { videos: [] };
+
   componentDidMount() {
-    console.log(`habit: VideoList mounted`);
-
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyDx4s78pyfBhiFUTh1Gj1sWSH5hrmSHNWE",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        this.setState({ videos: result.items });
-      })
-      .catch((error) => console.log("error", error));
+    const youtube = this.props.youtube;
+    youtube
+      .mostPopular() //
+      .then((videos) => this.setState({ videos: videos }));
   }
 
-  handleVideoClick = (card) => {
-    console.log(`A card in popular list clicked! ${card.title}`);
-  };
   handleSearch = (searchInput) => {
-    console.log(`searched video List ${searchInput}`);
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchInput}&key=AIzaSyDx4s78pyfBhiFUTh1Gj1sWSH5hrmSHNWE`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        this.setState({ videos: result.items });
-      })
-      .catch((error) => console.log("error", error));
+    const youtube = this.props.youtube;
+    youtube
+      .search(searchInput) //
+      .then((videos) => this.setState({ videos: videos }));
+  };
+  handleVideoClick = (video) => {
+    console.log(`A card in popular list clicked! ${video.snippet.title}`);
   };
   render() {
     return (

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./videoCard.module.css";
 class VideoCard extends Component {
   handleVideoClick = () => {
-    console.log("clicked");
+    console.log(`videoClicked ${this.props.video}`);
     this.props.onVideoClick(this.props.video);
   };
   render() {
@@ -19,8 +19,8 @@ class VideoCard extends Component {
             alt="videoCardImage"
           ></img>
           <div className={styles.metadata}>
-            <h3 className={styles.title}>{videoTitle}</h3>
-            <span className={styles.channelTitle}>{videoChannelTitle}</span>
+            <p className={styles.title}>{videoTitle}</p>
+            <p className={styles.channelTitle}>{videoChannelTitle}</p>
           </div>
         </div>
       </li>
