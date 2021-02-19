@@ -1,29 +1,15 @@
-.videoCard-image {
-  border-radius: 5px;
-}
-.videoCard-title {
-  display: inline-block;
-}
-.videoCard-author {
-  background-color: antiquewhite;
+.app {
+  max-width: 80rem;
+  margin: 0 auto;
 }
 
-.nav {
-  font-size: 2rem;
-  text-align: center;
+.content {
+  display: flex;
+}
+.detail {
+  flex: 1 1 70%;
+}
 
-  background-color: blanchedalmond;
-}
-.nav-logo {
-  margin: 0.5rem;
-  color: darkred;
-}
-.nav-search {
-  display: inline-block;
-  margin: 0.2rem;
-  text-align: center;
-  width: 50%;
-  height: 2.5rem;
-  padding: 0.4rem;
-  border-radius: 5%;
+.list {
+  flex: 1 1 30%;
 }

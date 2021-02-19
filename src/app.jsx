@@ -1,8 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/navbar/navbar";
 import VideoList from "./components/videoList/videoList";
-import Video from "./components/video";
-import "./app.css";
+import Video from "./components/videoDetail/video";
+import styles from "./app.module.css";
+import { useCallback } from "react";
 
 const App = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
@@ -11,24 +12,46 @@ const App = ({ youtube }) => {
     youtube
       .mostPopular() //
       .then((videos) => setVideos(videos));
-  }, []);
+  }, [youtube]);
 
-  const handleSearch = (searchInput) => {
+  const handleSearch = useCallback(
+    (searchInput) => {
+      youtube
+        .search(searchInput) //
+        .then((videos) => {
+          setVideos(videos);
+          setSelectedVideo(null);
+        });
+    },
+    [youtube]
+  );
+  const handleLogo = () => {
     youtube
-      .search(searchInput) //
+      .mostPopular() //
       .then((videos) => setVideos(videos));
+    setSelectedVideo(null);
   };
 
   const handleVideoClick = (video) => {
     setSelectedVideo(video);
-    console.log(`A card in popular list clicked! ${video.snippet.title}`);
   };
   return (
-    <div>
-      <Navbar onSearch={handleSearch} />
-      {selectedVideo && <Video video={selectedVideo} />}
-
-      <VideoList videos={videos} onVideoClick={handleVideoClick} />
+    <div className={styles.app}>
+      <Navbar onSearch={handleSearch} onLogoClick={handleLogo} />
+      <section className={styles.content}>
+        {selectedVideo && (
+          <div className={styles.detail}>
+            <Video video={selectedVideo} />
+          </div>
+        )}
+        <div className={styles.list}>
+          <VideoList
+            videos={videos}
+            onVideoClick={handleVideoClick}
+            display={selectedVideo ? "list" : "grid"} //if there's a selected Video then show it list, if not show grid!
+          />
+        </div>
+      </section>
     </div>
   );
 };

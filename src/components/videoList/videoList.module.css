@@ -3,4 +3,5 @@
   flex-wrap: wrap; /*아이템의 크기에 맞게 조정*/
   list-style: none;
   padding-left: 0;
+  margin: 0;
 }

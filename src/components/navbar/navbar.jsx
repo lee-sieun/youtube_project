@@ -1,8 +1,8 @@
 import styles from "./navbar.module.css";
 
-import React, { useRef } from "react";
+import React, { useRef, memo } from "react";
 
-const Navbar = ({ onSearch }) => {
+const Navbar = memo(({ onSearch, onLogoClick }) => {
   const inputRef = useRef();
   const handleSearch = () => {
     const value = inputRef.current.value;
@@ -19,7 +19,9 @@ const Navbar = ({ onSearch }) => {
     <header className={styles.header}>
       <div className={styles.logo}>
         <i className="fab fa-youtube"></i>
-        <h2 className={styles.title}>Youtube</h2>
+        <h2 className={styles.title} onClick={onLogoClick}>
+          Youtube
+        </h2>
       </div>
       <input
         ref={inputRef}
@@ -33,6 +35,6 @@ const Navbar = ({ onSearch }) => {
       </button>
     </header>
   );
-};
+});
 
 export default Navbar;

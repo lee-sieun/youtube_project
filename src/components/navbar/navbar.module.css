@@ -11,6 +11,10 @@
   align-items: center;
   margin-right: 1em;
 }
+.logo:hover {
+  color: red;
+  cursor: pointer;
+}
 
 .input {
   flex-basis: 100%;
